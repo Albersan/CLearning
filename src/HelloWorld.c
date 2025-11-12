@@ -284,10 +284,160 @@ void Exercise1_15()
     }
 }
 
+int getline_1_16(char s[], int lim)
+{
+    int c, i = 0;
+
+    while((c=getchar()) != EOF && c!='\n')
+    {
+        if(i < (lim-1))
+        {
+            s[i] = c;
+        }
+        ++i;
+    } 
+    if(c == '\n')
+    {
+        s[i] = c;
+        ++i;
+    }
+    if(i < (lim-1))
+    {
+        s[i] = '\0';
+    }
+    else
+    {
+        s[lim-1] = '\0';
+    }
+    return i;
+}
+
+int copy_1_16(char to[], char from[])
+{
+    int i;
+
+    i = 0;
+    while( (to[i]=from[i]) != '\0')
+    {
+        ++i;
+    }
+}
+
+// Correct the main routine of the "longest line program" to print the length correctly and to print the maximum amount of text possible.
+#define MAXLINE_1_16 10 
+void Exercise1_16()
+{
+    int len;
+    int max;
+    char line[MAXLINE_1_16];
+    char longest[MAXLINE_1_16];
+
+    max = 0;
+    while((len = getline_1_16(line, MAXLINE_1_16)) > 0 )
+    {
+        if(len > max)
+        {
+            max = len;
+            copy_1_16(longest, line);
+        }
+    }
+    if(max > 0)
+    {
+        printf("Longest line has %i chars: %s",max, longest);
+    }
+}
+
+// Print all lines that have more than LIMIT_1_17 chars
+#define MAXLINE_1_17 1000 
+#define LIMIT_1_17 10
+void Exercise1_17()
+{
+    int len;
+    char line[MAXLINE_1_17];
+
+    while((len = getline_1_16(line, MAXLINE_1_17)) > 0 )
+    {
+        if(len>LIMIT_1_17)
+        {
+            printf("%s",line);
+        }
+    }
+}
+
+// Write a program that removes the tabs and spaces at the end of a line
+// removes the entire line if it is filled with ' '
+#define MAXLINE_1_18 1000 
+void Exercise1_18()
+{
+    int len = 0;
+    char line[MAXLINE_1_18];
+
+    while((len = getline_1_16(line, MAXLINE_1_18)) > 0 )
+    {
+        len--;
+        len--;
+        for(len; len>=0; len--)
+        {
+            if(line[len] == '\t' || line[len] == ' ')
+            {
+                line[len] = '\0';
+            }
+            else
+            {
+                break;
+            }
+        }
+        if(len<3 && line[len] == '\0')
+        {
+            printf("ignoring line\n");
+
+        }
+        else
+        {
+            printf("%s",line);
+            printf("%d",(len+2));
+        }
+    }
+}
+
+void reverse_1_19(char line[])
+{
+    int i,len,j;
+    i = len = 0;
+    char swap ;
+    
+    while(line[len+=1]!='\0'){}
+    
+    j = len-1;
+    
+    while(i<=j)
+    {
+        swap = line[j];
+        line[j] = line[i];
+        line[i] = swap;
+        i++;
+        j--;
+    }
+}
+
+
+// Write a program that uses a function to reverse a line
+#define MAXLINE_1_19 1000 
+void Exercise1_19()
+{
+    char line[MAXLINE_1_19];
+
+    while(getline_1_16(line, MAXLINE_1_19) > 0 )
+    {
+        reverse_1_19(line); 
+        printf("%s",line);
+    }
+}
+
 int main() 
 {
     printf("\n");
-    Exercise1_15();
+    Exercise1_18();
     printf("\n");
     return 0;
 }
